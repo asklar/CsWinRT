@@ -96,6 +96,8 @@ namespace DiagnosticTests
         {
             get 
             {
+                
+                yield return new TestCaseData(NotUsingSameVariableName, WinRTRules.PrivateGetterRule).SetName("Property. PrivateGetter");
                 // private getter
                 yield return new TestCaseData(PrivateGetter, WinRTRules.PrivateGetterRule).SetName("Property. PrivateGetter");
                 yield return new TestCaseData(PropertyNoGetter).SetName("Property. No Get, public Setter");
@@ -395,6 +397,7 @@ namespace DiagnosticTests
         {
             get
             {
+                yield return new TestCaseData(Valid_DefaultOverload).SetName("Valid. DefaultOverload. Class doesn't have to specify attribute if interface did");
                 yield return new TestCaseData(Valid_PrivateSetter).SetName("Valid. Property. Private Setter");
                 yield return new TestCaseData(Valid_RollYourOwnAsyncAction).SetName("Valid. AsyncInterfaces. Implementing your own IAsyncAction");
                 yield return new TestCaseData(Valid_CustomDictionary).SetName("Valid. CustomProjection. IDictionary<string,BasicStruct>");

@@ -21,6 +21,12 @@ namespace WinRT.SourceGenerator
                 helpLinkUri: "https://docs.microsoft.com/en-us/previous-versions/hh977010(v=vs.110)");
         }
 
+        public static DiagnosticDescriptor ImplementerUseSameVariableName = MakeRule(
+            "WME1113", 
+            "Class implementaiton method should use same paramter as interface method",
+            "Class '{0}' implements method '{1}' with parameter '{2}', but '{1}' was declared in interface '{3}' with parameter '{4}'." 
+            + "Parameter names must match exactly.");
+        
         public static DiagnosticDescriptor PrivateGetterRule = MakeRule(
             "WME", 
             "Property must have public getter",

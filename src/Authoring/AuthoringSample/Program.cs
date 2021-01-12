@@ -360,9 +360,9 @@ namespace AuthoringSample
             return 2.0 * Factor;
         }
 
-        public double GetDouble(bool ignoreFactor)
+        public double GetDouble(bool ignore)
         {
-            return ignoreFactor ? 2.0 : GetNumber();
+            return ignore ? 2.0 : GetNumber();
         }
 
         // Implementing another interface

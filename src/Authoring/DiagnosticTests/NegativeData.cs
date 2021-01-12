@@ -2,6 +2,24 @@ namespace DiagnosticTests
 {
     public sealed partial class UnitTesting
     {
+        private const string NotUsingSameVariableName = @"
+namespace DiagnosticTests
+{
+    public interface MyInterface
+    {
+        int Identity(int alpha);
+    }
+    
+    public sealed class MyClass : MyInterface
+    {
+        public int Identity(int x) // 'x' should be 'alpha'
+        {
+            return 1;
+        }
+    }
+}";
+
+
         private const string PropertyNoGetter = @"
 namespace DiagnosticTests
 {

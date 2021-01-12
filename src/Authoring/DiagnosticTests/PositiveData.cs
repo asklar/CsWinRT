@@ -4,6 +4,30 @@ namespace DiagnosticTests
 {
     public sealed partial class UnitTesting
     {
+        private const string Valid_DefaultOverload = @"
+namespace DiagnosticTests
+{
+    public interface MyTypeProvider 
+    {
+        [Windows.Foundation.Metadata.DefaultOverload]
+        int GetType(int x);
+        int GetType(string s);
+    }
+    
+    public sealed class MyClass : MyTypeProvider
+    {
+        public int GetType(int x)
+        {
+            return 0;
+        }
+        
+        public int GetType(string s)
+        {
+            return 1;
+        }
+    }
+}";
+
         private const string Valid_PrivateSetter = @"
 namespace DiagnosticTests
 {
