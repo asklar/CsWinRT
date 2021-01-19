@@ -2,17 +2,13 @@
 // to simplify deployment
 
 using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Collections.Concurrent;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+
 #if !NETSTANDARD2_0
 using System.Runtime.Loader;
+[assembly: global::System.Runtime.Versioning.SupportedOSPlatform("Windows")]
 #endif
-using System.Text;
-using Windows.Foundation;
-using WinRT;
 
 namespace WinRT.Host
 {
@@ -68,12 +64,13 @@ namespace WinRT.Host
 #else
         private class ActivationLoader : AssemblyLoadContext
         {
+            private static readonly ConcurrentDictionary<string, ActivationLoader> ALCMapping = new ConcurrentDictionary<string, ActivationLoader>();
             private AssemblyDependencyResolver _resolver;
 
             public static Assembly LoadAssembly(string targetAssembly)
             {
-                var loader = new ActivationLoader(targetAssembly);
-                return loader.LoadFromAssemblyPath(targetAssembly);
+                return ALCMapping.GetOrAdd(targetAssembly, (_) => new ActivationLoader(targetAssembly))
+                    .LoadFromAssemblyPath(targetAssembly);
             }
 
             private ActivationLoader(string path)
@@ -93,7 +90,6 @@ namespace WinRT.Host
                     return null;
                 };
             }
-
 
             protected override Assembly Load(AssemblyName assemblyName)
             {
