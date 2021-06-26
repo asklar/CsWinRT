@@ -35,6 +35,7 @@ namespace cswinrt
         { "target", 0, 1, "<net5.0|netstandard2.0>", "Target TFM for projection. Omit for compatibility with newest TFM (net5.0)." },
         { "component", 0, 0, {}, "Generate component projection." },
         { "verbose", 0, 0, {}, "Show detailed progress information" },
+        { "useWUX", 0, 0, {}, "Use Windows XAML instead of WinUI to project certain types" },
         { "help", 0, option::no_max, {}, "Show detailed help" },
         { "?", 0, option::no_max, {}, {} },
     };
@@ -85,6 +86,8 @@ Where <spec> is one or more of:
         }
 
         settings.verbose = args.exists("verbose");
+        settings.useWUX = args.exists("useWUX");
+
         auto target = args.value("target");
         if (!target.empty() && target != "netstandard2.0" && !starts_with(target, "net5.0"))
         {

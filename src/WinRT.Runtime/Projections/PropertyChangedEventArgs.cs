@@ -79,7 +79,7 @@ namespace ABI.System.ComponentModel
 
         private class ActivationFactory : BaseActivationFactory
         {
-            public ActivationFactory() : base("Microsoft.UI.Xaml.Data", "Microsoft.UI.Xaml.Data.PropertyChangedEventArgs")
+            public ActivationFactory() : base(Projections.MakeXamlType("Data"), Projections.MakeXamlType("Data.PropertyChangedEventArgs"))
             {
             }
         }

@@ -171,7 +171,7 @@ namespace ABI.System.Collections.Specialized
 
         private class ActivationFactory : BaseActivationFactory
         {
-            public ActivationFactory() : base("Microsoft.UI.Xaml.Interop", "Microsoft.UI.Xaml.Interop.NotifyCollectionChangedEventArgs")
+            public ActivationFactory() : base(Projections.MakeXamlType("Interop"), Projections.MakeXamlType("Interop.NotifyCollectionChangedEventArgs"))
             {
             }
         }

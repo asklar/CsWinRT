@@ -12,6 +12,7 @@ namespace cswinrt
         winmd::reader::filter filter;
         bool netstandard_compat{};
         bool component{};
+        bool useWUX{ false };
     };
 
     extern settings_type settings;

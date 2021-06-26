@@ -466,9 +466,23 @@ namespace cswinrt
         bool requires_marshaling;
         bool has_custom_members_output;
     };
+   
+#define SYSTEM_XAML_NS   "Windows.UI.Xaml"
+#define WINUI_XAML_NS    "Microsoft.UI.Xaml"
+#define MAKE_NS(nsName)   (useWUX) ? (SYSTEM_XAML_NS ## "." ## nsName) : (WINUI_XAML_NS ## "." ## nsName)
 
     inline const std::initializer_list<mapped_type> get_mapped_types_in_namespace(std::string_view typeNamespace)
     {
+        const bool useWUX = settings.useWUX;
+        const std::string_view xamlNS = useWUX ? SYSTEM_XAML_NS : WINUI_XAML_NS;
+        const std::string_view xamlControlsPrimitivesNS = MAKE_NS("Controls.Primitives");
+        const std::string_view xamlDataNS = MAKE_NS("Data");
+        const std::string_view xamlInputNS = MAKE_NS("Input");
+        const std::string_view xamlInteropNS = MAKE_NS("Interop");
+        const std::string_view xamlMediaNS = MAKE_NS("Media");
+        const std::string_view xamlMediaAnimationNS = MAKE_NS("Animation");
+        const std::string_view xamlMediaMedia3DNS = MAKE_NS("Media3D");
+
         static const struct
         {
             std::string_view name_space;
@@ -478,16 +492,16 @@ namespace cswinrt
             // Make sure to keep this table consistent with the registrations in WinRT.Runtime/Projections.cs
             // and the reverse mapping in WinRT.SourceGenerator/WinRTTypeWriter.cs.
             // NOTE: Must keep namespaces sorted (outer) and abi type names sorted (inner)
-            { "Microsoft.UI.Xaml",
+            { xamlNS,
                 {
-                    { "CornerRadius", "Microsoft.UI.Xaml", "CornerRadius" },
+                    { "CornerRadius", xamlNS, "CornerRadius" },
                     { "CornerRadiusHelper" },
-                    { "Duration", "Microsoft.UI.Xaml", "Duration" },
+                    { "Duration", xamlNS, "Duration" },
                     { "DurationHelper" },
-                    { "DurationType", "Microsoft.UI.Xaml", "DurationType" },
-                    { "GridLength", "Microsoft.UI.Xaml", "GridLength" },
+                    { "DurationType", xamlNS, "DurationType" },
+                    { "GridLength", xamlNS, "GridLength" },
                     { "GridLengthHelper" },
-                    { "GridUnitType", "Microsoft.UI.Xaml", "GridUnitType" },
+                    { "GridUnitType", xamlNS, "GridUnitType" },
                     { "ICornerRadiusHelper" },
                     { "ICornerRadiusHelperStatics" },
                     { "IDurationHelper" },
@@ -496,20 +510,20 @@ namespace cswinrt
                     { "IGridLengthHelperStatics" },
                     { "IThicknessHelper" },
                     { "IThicknessHelperStatics" },
-                    { "Thickness", "Microsoft.UI.Xaml", "Thickness" },
+                    { "Thickness", xamlNS, "Thickness" },
                     { "ThicknessHelper" },
                     { "IXamlServiceProvider", "System", "IServiceProvider" },
                 }
             },
-            { "Microsoft.UI.Xaml.Controls.Primitives",
+            { xamlControlsPrimitivesNS,
                 {
-                    { "GeneratorPosition", "Microsoft.UI.Xaml.Controls.Primitives", "GeneratorPosition" },
+                    { "GeneratorPosition", xamlControlsPrimitivesNS, "GeneratorPosition" },
                     { "GeneratorPositionHelper" },
                     { "IGeneratorPositionHelper" },
                     { "IGeneratorPositionHelperStatics" },
                 }
             },
-            { "Microsoft.UI.Xaml.Data",
+            { xamlDataNS,
                 {
                     { "DataErrorsChangedEventArgs", "System.ComponentModel", "DataErrorsChangedEventArgs" },
                     { "INotifyDataErrorInfo", "System.ComponentModel", "INotifyDataErrorInfo", true, true },
@@ -518,12 +532,12 @@ namespace cswinrt
                     { "PropertyChangedEventHandler", "System.ComponentModel", "PropertyChangedEventHandler" },
                 }
             },
-            { "Microsoft.UI.Xaml.Input",
+            { xamlInputNS,
                 {
                     { "ICommand", "System.Windows.Input", "ICommand", true }
                 }
             },
-            { "Microsoft.UI.Xaml.Interop",
+            { xamlInteropNS,
                 {
                     { "IBindableIterable", "System.Collections", "IEnumerable", true, true },
                     { "IBindableVector", "System.Collections", "IList", true, true },
@@ -533,32 +547,32 @@ namespace cswinrt
                     { "NotifyCollectionChangedEventHandler", "System.Collections.Specialized", "NotifyCollectionChangedEventHandler", true },
                 }
             },
-            { "Microsoft.UI.Xaml.Media",
+            { xamlMediaNS,
                 {
                     { "IMatrixHelper" },
                     { "IMatrixHelperStatics" },
-                    { "Matrix", "Microsoft.UI.Xaml.Media", "Matrix" },
+                    { "Matrix", xamlMediaNS, "Matrix" },
                     { "MatrixHelper" },
                 }
             },
-            { "Microsoft.UI.Xaml.Media.Animation",
+            { xamlMediaAnimationNS,
                 {
                     { "IKeyTimeHelper" },
                     { "IKeyTimeHelperStatics" },
                     { "IRepeatBehaviorHelper" },
                     { "IRepeatBehaviorHelperStatics" },
-                    { "KeyTime", "Microsoft.UI.Xaml.Media.Animation", "KeyTime" },
+                    { "KeyTime", xamlMediaAnimationNS, "KeyTime" },
                     { "KeyTimeHelper" },
-                    { "RepeatBehavior", "Microsoft.UI.Xaml.Media.Animation", "RepeatBehavior" },
+                    { "RepeatBehavior", xamlMediaAnimationNS, "RepeatBehavior" },
                     { "RepeatBehaviorHelper" },
-                    { "RepeatBehaviorType", "Microsoft.UI.Xaml.Media.Animation", "RepeatBehaviorType" }
+                    { "RepeatBehaviorType", xamlMediaAnimationNS, "RepeatBehaviorType" }
                 }
             },
-            { "Microsoft.UI.Xaml.Media.Media3D",
+            { xamlMediaMedia3DNS,
                 {
                     { "IMatrix3DHelper" },
                     { "IMatrix3DHelperStatics" },
-                    { "Matrix3D", "Microsoft.UI.Xaml.Media.Media3D", "Matrix3D" },
+                    { "Matrix3D", xamlMediaMedia3DNS, "Matrix3D" },
                     { "Matrix3DHelper" },
                 }
             },

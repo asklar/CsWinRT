@@ -1,5 +1,8 @@
-
+#if PROJECT_TO_WUX
+namespace Windows.UI.Xaml
+#else
 namespace Microsoft.UI.Xaml
+#endif
 {
     using Windows.Foundation;
 
@@ -686,7 +689,7 @@ namespace ABI.Microsoft.UI.Xaml
 
     public static class DurationType
     {
-        public static string GetGuidSignature() => "enum(Microsoft.UI.Xaml.DurationType;i4)";
+        public static string GetGuidSignature() => $"enum(Microsoft.UI.Xaml.DurationType;i4)";
     }
 
     public static class GridLength
